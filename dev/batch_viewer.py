@@ -1,9 +1,9 @@
-from DataLoader import dataLoader
+from DataLoader import train_data_loader
 import matplotlib.pyplot as plt
 
 count = 1 
 
-for batch in dataLoader:
+for batch in train_data_loader:
     img, lbl = batch
     print(f"loading for count : {count}")
     count += 1

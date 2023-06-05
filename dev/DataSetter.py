@@ -24,6 +24,11 @@ class LungImageData(Dataset):
         lbl = lbl.astype(np.float32)
         lbl = torch.from_numpy(lbl)
 
+        # color channel specific treatment
+        img = np.clip(img, -1024, 1024)
+        img = (img + 1024) / 2048
+
+        # finding mean and std
         if self.transform:
             img = self.transform(img)
             lbl = self.transform(lbl)

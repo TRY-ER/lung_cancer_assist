@@ -18,11 +18,9 @@ def crop_img(x,y):
     delta_pre = tensor_size - target_size
     if(delta_pre % 2):
         delta = delta_pre // 2
-        print("delta",delta) 
         return x[:,:,delta:tensor_size-delta-1,delta:tensor_size-delta-1]
     else:
         delta = delta_pre // 2
-        print("delta",delta) 
         return x[:,:,delta:tensor_size-delta,delta:tensor_size-delta]
 
 
@@ -57,6 +55,7 @@ class CustUnet(nn.Module):
     def forward(self, x):
         
         # encoding forward
+        
         x1 = self.double_down_conv_1(x)
         x2 = self.max_pool_2x2(x1)
 
@@ -79,7 +78,6 @@ class CustUnet(nn.Module):
 
         x14 = self.up2(x13)
         x15 = crop_img(x5, x14)
-        print(x14.size(),x5.size(),x15.size())
         x16 = torch.cat([x15, x14], dim=1)
         x17 = self.double_up_conv_2(x16)
 
